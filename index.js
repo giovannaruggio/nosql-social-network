@@ -1,15 +1,15 @@
 const express = require('express');
 const db = require('./config/connection');
-const usersRoute = require('./routes/api/usersRoutes');
-const thoughtsRoute = require('./routes/api/thoughtsRoutes');
+const userRoute = require('./routes/api/userRoutes');
+const thoughtRoute = require('./routes/api/thoughtRoutes');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/api/users', usersRoute);
-app.use('/api/thoughts', thoughtsRoute);
+app.use('/api/users', userRoute);
+app.use('/api/thoughts', thoughtRoute);
 
 db.once('open', () => {
   app.listen(PORT, () => {
