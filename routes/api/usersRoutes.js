@@ -1,18 +1,24 @@
 const router = require('express').Router();
-const User = require('../../models/Users');
+const { 
+    getUsers,
+    getSingleUser,
+    createUser,
+    updateUser,
+    deleteUser,
+    addFriend,
+    removeFriend
+} = require('../../controllers/userController');
 
-router.get('/', (req, res) => {
-    res.send('Welcome to the users route!')
-})
+// /api/users
+router.route('/').get(getUsers).post(createUser);
 
-router.get('/register', async (req, res) => {
-    const user = await new User({
-        username: 'Jane',
-        email: 'janedoe@gmail.com'
-    })
+// /api/users/:userId
+router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
 
-    await user.save();
-    res.send('User added!')
-})
+// /api/users/:userId/friends
+router.route('/:userId/friends').post(addFriend);
 
-module.exports = router;
+// /api/users/:userId/friends/:friendId
+router.route('/:userId/friends/:friendId').delete(removeFriend);
+
+module.exports = router; 
