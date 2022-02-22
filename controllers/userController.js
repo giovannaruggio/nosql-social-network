@@ -18,10 +18,12 @@ module.exports = {
         .catch((err) => res.status(500).json(err));
     },
     // Create new user
-    createUsers(req, res) {
+    createUser(req, res) {
+        // console.log(req.body);
         User.create(req.body)
-        .then((users) => res.json(users))
-        .catch((err) => res.status(500).json(err));
+        .then((user) => { res.json(user)})
+        .catch((err) => { console.log(err)
+            res.status(500).json(err)});
     },
     // Delete user
     deleteUser(req, res) {

@@ -31,7 +31,8 @@ module.exports = {
                 return res.status(500).json(err);
             })
         })
-        .catch((err) => res.status(500).json(err));
+        .catch((err) => { console.log(err)
+            res.status(500).json(err)});
     },
     // Delete thought
     deleteThought(req, res) {
@@ -65,10 +66,10 @@ module.exports = {
             { $addToSet: { reactions: req.body }},
             { runValidators: true, new: true }
         )
-        .then((thought) =>
-        !thought
-                ? res.status(404).json({ message: 'No thought with this ID' })
-                : res.json(thought)
+        .then((reaction) =>
+        !reaction
+                ? res.status(404).json({ message: 'No reaction with this ID' })
+                : res.json(reaction)
             )
             .catch((err) => res.status(500).json(err));
     },
@@ -76,7 +77,7 @@ module.exports = {
     removeReaction(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
-            { $pull: { reactions: req.params.reactionId }},
+            { $pull: { reactions: { reactionId: req.params.reactionId }}},
             { runValidators: true, new: true }
         )
         .then((reaction) =>
@@ -84,7 +85,5 @@ module.exports = {
                 ? res.status(404).json({ message: 'No reaction with this ID' })
                 : res.json(reaction)
             )
-            .then(() => res.json({ message: 'Reaction deleted!' }))
-            .catch((err) => res.status(500).json(err));
     }
 }

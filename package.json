@@ -3,7 +3,6 @@
   "description": "User Story AS A social media startup I WANT an API for my social network that uses a NoSQL database SO THAT my website can handle large amounts of unstructured data",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "start": "nodemon index.js",
     "dev": "nodemon index",
@@ -16,6 +15,7 @@
   },
   "dependencies": {
     "express": "^4.17.2",
+    "moment": "^2.29.1",
     "mongoose": "^6.2.1"
   },
   "author": "",
